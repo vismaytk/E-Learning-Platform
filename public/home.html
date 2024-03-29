@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SkillUpApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body ng-controller="SearchController">
+
+    <header class="header">
+
+        <section class="flex">
+
+            <a href="home.html" class="logo">SkillUp</a>
+
+            <form ng-submit="search()" class="search-form">
+                <input type="text" ng-model="searchKeyword" ng-change="filterCourses()" placeholder="search courses..."
+                    maxlength="100">
+                <button type="submit" class="fas fa-search"></button>
+            </form>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+            </div>
+
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">User</h3>
+                <p class="role">Student</p>
+                <a href="profile.html" class="btn">view profile</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">login</a>
+                    <a href="register.html" class="option-btn">register</a>
+                </div>
+            </div>
+
+        </section>
+
+    </header>
+
+    <div class="side-bar">
+
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">User</h3>
+            <p class="role">Student</p>
+            <a href="profile.html" class="btn">view profile</a>
+        </div>
+
+        <nav class="navbar">
+            <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+            <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+            <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+            <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+        </nav>
+
+    </div>
+
+    <section class="home-grid">
+
+        <h1 class="heading">Quick Options</h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3 class="title">top categories</h3>
+                <div class="flex">
+                    <a href="courses.html"><i class="fas fa-code"></i><span>development</span></a>
+                    <a href="courses.html"><i class="fas fa-chart-simple"></i><span>business</span></a>
+                    <a href="courses.html"><i class="fas fa-pen"></i><span>design</span></a>
+                    <a href="courses.html"><i class="fas fa-camera"></i><span>photography</span></a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3 class="title">popular topics</h3>
+                <div class="flex">
+                    <a href="courses.html"><i class="fab fa-html5"></i><span>HTML</span></a>
+                    <a href="courses.html"><i class="fab fa-css3"></i><span>CSS</span></a>
+                    <a href="courses.html"><i class="fab fa-js"></i><span>javascript</span></a>
+                    <a href="courses.html"><i class="fab fa-react"></i><span>react</span></a>
+                    <a href="courses.html"><i class="fab fa-php"></i><span>PHP</span></a>
+                    <a href="courses.html"><i class="fab fa-bootstrap"></i><span>bootstrap</span></a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3 class="title">become a tutor</h3>
+                <p class="tutor">Help students excel in their interested domains..</p>
+                <a href="teachers.html" class="inline-btn">get started</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="courses">
+
+        <h1 class="heading">our courses</h1>
+
+        <div class="box-container">
+            <div class="box" ng-repeat="course in filteredCourses">
+                <div class="tutor">
+                    <img src="{{ course.tutorImage }}" alt="">
+                    <div class="info">
+                        <h3>{{ course.tutorName }}</h3>
+                        <span>{{ course.date }}</span>
+                    </div>
+                </div>
+                <div class="thumb">
+                    <img src="{{ course.thumbnail }}" alt="">
+                    <span>{{ course.videoCount }} videos</span>
+                </div>
+                <h3 class="title">{{ course.title }}</h3>
+                <a href="{{ course.playlistUrl }}" class="inline-btn">view playlist</a>
+            </div>
+        </div>
+
+        <div class="more-btn">
+            <a href="courses.html" class="inline-option-btn">view all courses</a>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+
+        &copy; Copyright @E268 @E270 | all rights reserved!
+
+    </footer>
+
+    <!-- custom js file link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        var app = angular.module('SkillUpApp', []);
+
+        app.controller('SearchController', function ($scope) {
+            $scope.courses = [
+                {
+                    tutorName: 'Vismay',
+                    date: '21-10-2022',
+                    thumbnail: 'images/thumb-1.png',
+                    videoCount: '10',
+                    title: 'HTML tutorial',
+                    playlistUrl: 'login.html',
+                    tutorImage: 'images/pic-2.jpg'
+                },
+                {
+                    tutorName: 'Dravinam',
+                    date: '21-10-2022',
+                    thumbnail: 'images/thumb-2.png',
+                    videoCount: '10',
+                    title: 'CSS tutorial',
+                    playlistUrl: 'login.html',
+                    tutorImage: 'images/pic-3.jpg'
+                },
+                {
+                    tutorName: 'Yash',
+                    date: '21-10-2022',
+                    thumbnail: 'images/thumb-3.png',
+                    videoCount: '10',
+                    title: 'JS tutorial',
+                    playlistUrl: 'login.html',
+                    tutorImage: 'images/pic-4.jpg'
+                },
+                {
+                    tutorName: 'Krish',
+                    date: '21-10-2022',
+                    thumbnail: 'images/thumb-4.png',
+                    videoCount: '10',
+                    title: 'Bootstrap tutorial',
+                    playlistUrl: 'login.html',
+                    tutorImage: 'images/pic-5.jpg'
+                },
+                {
+                    tutorName: 'Modi',
+                    date: '21-10-2022',
+                    thumbnail: 'images/thumb-5.png',
+                    videoCount: '10',
+                    title: 'JQuery tutorial',
+                    playlistUrl: 'login.html',
+                    tutorImage: 'images/pic-6.jpg'
+                },
+            ];
+
+            $scope.filterCourses = function () {
+                if (!$scope.searchKeyword) {
+                    $scope.filteredCourses = $scope.courses;
+                } 
+                else {
+                    $scope.filteredCourses = $scope.courses.filter(function (course) {
+                        return course.title.toLowerCase().includes($scope.searchKeyword.toLowerCase());
+                    });
+                }
+            };
+
+            $scope.search = function () {
+                $scope.filterCourses();
+            };
+        });
+    </script>
+
+</body>
+
+</html>
