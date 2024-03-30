@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ExploreCoursesApp">
 
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Explore Courses</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+   <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body ng-controller="CoursesController">
+
+   <header class="header">
+
+      <section class="flex">
+         <a href="home.html" class="logo">SkillUp</a>
+
+         <form class="search-form">
+            <input type="text" ng-model="searchKeyword" ng-keyup="filterCourses()" placeholder="search courses..."
+               maxlength="100">
+            <button type="submit" class="fas fa-search"></button>
+         </form>
+
+         <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="user-btn" class="fas fa-user"></div>
+         </div>
+
+         <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">User</h3>
+            <p class="role">Student</p>
+            <a href="profile.html" class="btn">view profile</a>
+            <div class="flex-btn">
+               <a href="login.html" class="option-btn">login</a>
+               <a href="register.html" class="option-btn">register</a>
+            </div>
+         </div>
+
+      </section>
+   </header>
+
+   <div class="side-bar">
+      <div id="close-btn">
+         <i class="fas fa-times"></i>
+      </div>
+
+      <div class="profile">
+         <img src="images/pic-1.jpg" class="image" alt="">
+         <h3 class="name">User</h3>
+         <p class="role">Student</p>
+         <a href="profile.html" class="btn">view profile</a>
+      </div>
+
+      <nav class="navbar">
+         <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+         <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+         <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+         <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+         <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+      </nav>
+   </div>
+
+   <section class="courses">
+      <h1 class="heading">Our Courses</h1>
+
+      <div class="box-container">
+         <div class="box" ng-repeat="course in filteredCourses">
+            <div class="tutor">
+               <img src="{{ course.tutorImage }}" alt="">
+               <div class="info">
+                  <h3>{{ course.tutorName }}</h3>
+                  <span>{{ course.date }}</span>
+               </div>
+            </div>
+            <div class="thumb">
+               <img src="{{ course.thumbnail }}" alt="">
+               <span>{{ course.videoCount }} videos</span>
+            </div>
+            <h3 class="title">{{ course.title }}</h3>
+            <a href="{{ course.playlistUrl }}" class="inline-btn">view playlist</a>
+         </div>
+      </div>
+
+      <div class="dropdown" ng-show="showDropdown && searchKeyword">
+         <ul>
+            <li ng-repeat="course in suggestedCourses">{{ course.title }}</li>
+         </ul>
+      </div>
+   </section>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+   <script>
+      var app = angular.module('ExploreCoursesApp', []);
+
+      app.controller('CoursesController', function ($scope) {
+         $scope.courses = [
+            {
+               tutorName: 'Vismay',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-1.png',
+               videoCount: '10',
+               title: 'Complete HTML tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-2.jpg'
+            },
+            {
+               tutorName: 'Dravinam',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-2.png',
+               videoCount: '10',
+               title: 'Complete CSS tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-3.jpg'
+            },
+            {
+               tutorName: 'Krish',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-3.png',
+               videoCount: '10',
+               title: 'Complete JS tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-4.jpg'
+            },
+            {
+               tutorName: 'Modi',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-4.png',
+               videoCount: '10',
+               title: 'Complete Bootstrap tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-5.jpg'
+            },
+            {
+               tutorName: 'Yash',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-5.png',
+               videoCount: '10',
+               title: 'Complete JQuery tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-6.jpg'
+            },
+            {
+               tutorName: 'Rudra',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-6.png',
+               videoCount: '10',
+               title: 'Complete SASS tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-7.jpg'
+            },
+            {
+               tutorName: 'Jash',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-7.png',
+               videoCount: '10',
+               title: 'Complete PHP tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-8.jpg'
+            },
+            {
+               tutorName: 'Om',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-8.png',
+               videoCount: '10',
+               title: 'Complete MySQL tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-9.jpg'
+            },
+            {
+               tutorName: 'Darak',
+               date: '21-10-2022',
+               thumbnail: 'images/thumb-9.png',
+               videoCount: '10',
+               title: 'Complete React tutorial',
+               playlistUrl: 'playlist.html',
+               tutorImage: 'images/pic-3.jpg'
+            },
+         ];
+
+         $scope.filteredCourses = $scope.courses;
+         $scope.suggestedCourses = [];
+         $scope.showDropdown = false;
+
+         $scope.filterCourses = function () {
+            $scope.filteredCourses = $scope.courses.filter(function (course) {
+               return course.title.toLowerCase().includes($scope.searchKeyword.toLowerCase());
+            });
+
+            if ($scope.searchKeyword) {
+               $scope.showDropdown = true;
+               $scope.suggestedCourses = $scope.courses.filter(function (course) {
+                  return course.title.toLowerCase().startsWith($scope.searchKeyword.toLowerCase());
+               });
+            } else {
+               $scope.showDropdown = false;
+               $scope.suggestedCourses = [];
+            }
+         };
+      });
+   </script>
+
+</body>
+
+</html>
