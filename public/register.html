@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body ng-app="registrationApp" ng-controller="registrationController">
+
+   <header class="header">
+
+      <section class="flex">
+
+         <a href="home.html" class="logo">SkillUp</a>
+
+         <form action="search.html" method="post" class="search-form">
+            <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+            <button type="submit" class="fas fa-search"></button>
+         </form>
+
+         <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="user-btn" class="fas fa-user"></div>
+         </div>
+
+         <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">User</h3>
+            <p class="role">Student</p>
+            <a href="profile.html" class="btn">view profile</a>
+            <div class="flex-btn">
+               <a href="login.html" class="option-btn">login</a>
+               <a href="register.html" class="option-btn">register</a>
+            </div>
+         </div>
+
+      </section>
+
+   </header>
+
+   <div class="side-bar">
+
+      <div id="close-btn">
+         <i class="fas fa-times"></i>
+      </div>
+
+      <div class="profile">
+         <img src="images/pic-1.jpg" class="image" alt="">
+         <h3 class="name">User</h3>
+         <p class="role">Student</p>
+         <a href="profile.html" class="btn">view profile</a>
+      </div>
+
+      <nav class="navbar">
+         <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+         <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+         <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+         <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+         <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+      </nav>
+
+   </div>
+
+   <section class="form-container">
+
+      <form name="registrationForm" method="post" ng-submit="submitForm()">
+         <h3>register now as student</h3>
+         <p>Your Name <span>*</span></p>
+         <input required type="text" name="fullname" placeholder="Enter your name" ng-model="user.fullName"
+            ng-blur="checkName()" maxlength="50" class="box">
+         <span class="error-msg" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required">
+            Name is required
+         </span>
+         <span class="error-msg" ng-show="invalidName">Name should not contain numbers</span><br>
+
+         <p>Your Email <span>*</span></p>
+         <input required type="email" name="email" placeholder="Enter your email" ng-model="user.email" maxlength="50"
+            class="box">
+         <span class="error-msg" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.required">
+            Email is required
+         </span>
+         <span class="error-msg" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email">
+            Invalid email format
+         </span><br>
+
+         <p>Your Password <span>*</span></p>
+         <input type="password" name="password" ng-model="user.password" placeholder="Enter your password" required
+            maxlength="8" minlength="5" class="box">
+         <span class="error-msg"
+            ng-show="registrationForm.password.$dirty && registrationForm.password.$error.required">
+            Password is required
+         </span><br>
+
+         <p>Confirm Password <span>*</span></p>
+         <input type="password" name="confirmPassword" ng-model="user.confirmPassword" ng-change="checkPasswordMatch()"
+            placeholder="Confirm your password" required maxlength="8" minlength="5" class="box">
+         <span class="error-msg"
+            ng-show="registrationForm.confirmPassword.$dirty && registrationForm.confirmPassword.$error.required">Please
+            confirm password</span>
+         <span class="error-msg" ng-show="!passwordsMatch">Passwords do not match</span><br>
+
+         <input type="submit" value="Register" class="btn"
+            ng-disabled="registrationForm.$invalid">
+
+      </form>
+
+   </section>
+   <script src="angular.min.js"></script>
+   <script>
+      var app = angular.module('registrationApp', []);
+      app.controller('registrationController', function ($scope, $window) {
+         $scope.user = {};
+
+         $scope.checkName = function () {
+            var pattern = /\d/;
+            $scope.invalidName = pattern.test($scope.user.fullName);
+         };
+
+         $scope.checkPasswordMatch = function () {
+            $scope.passwordsMatch = $scope.user.password === $scope.user.confirmPassword;
+         };
+
+         $scope.submitForm = function () {
+            $window.location.href = "courses.html";
+         };
+      });
+   </script>
+
+   <script src="js/script.js"></script>
+</body>
+
+</html>
